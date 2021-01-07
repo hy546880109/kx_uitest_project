@@ -6,6 +6,15 @@ import pytest
 from kx_uitest_project.pages.kexin_first_page import Kexin_First_Page
 from selenium.webdriver.common.action_chains import ActionChains
 
+
+logger = logging.getLogger(__name__)
+handler = logging.StreamHandler()
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(lineno)s - %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+
 def test_first_page(dr):
   dr.find_element_by_css_selector('div.header-con.ivu-layout-header > div > a > i').click() #侧边栏
   dr.find_element_by_css_selector('div.custom-content-con > div.about').click()   #关于
@@ -17,7 +26,7 @@ def test_first_page(dr):
   dr.find_element_by_css_selector('div.ivu-select-dropdown > ul > li').click()  #点击退出
   sleep(1)
   now_url = dr.current_url
-  print(now_url)
+  logger.debug(now_url)
   assert 'login' in now_url
 
 if __name__ =='__main__':
